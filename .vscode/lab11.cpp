@@ -33,7 +33,7 @@ struct Order {
         totalPrice += price * quantity;
     }
     
-    // display the order details
+    // oorder details
     void display() const {
         cout << "\n=== Order for Table " << tableNumber << " ===" << endl;
         cout << "Status: " << (isPaid ? "PAID" : "PENDING") << endl;
@@ -117,3 +117,70 @@ public:
     }
     
 };
+
+int main() {
+    
+    Restaurant myRestaurant("Adam's Dining Club");
+    
+    // === Create Order 1: Table 5 ===
+    Order& order1 = myRestaurant.createNewOrder(5);
+    
+    order1.addItem("Caesar Salad", 12.50, 2);
+    order1.addItem("Grilled Salmon", 28.00, 1);
+    order1.addItem("Pasta Carbonara", 18.50, 1);
+    order1.addItem("Red Wine", 8.00, 2);
+    order1.display();
+    
+    // === Create Order 2: Table 2 ===
+    Order& order2 = myRestaurant.createNewOrder(2);
+    
+    order2.addItem("Cappuccino", 4.50, 1);
+    order2.addItem("Tiramisu", 8.00, 1);
+    order2.markAsPaid();  // This customer already paid
+    order2.display();
+    
+    // === Create Order 3: Table 8 ===
+    Order& order3 = myRestaurant.createNewOrder(8);
+    
+    order3.addItem("Bruschetta", 9.50, 3);
+    order3.addItem("Margherita Pizza", 16.00, 2);
+    order3.addItem("BBQ Ribs", 32.00, 2);
+    order3.addItem("Fish and Chips", 22.00, 1);
+    order3.addItem("Chicken Wings", 14.00, 2);
+    order3.addItem("icecream sundawe", 6.00, 8);
+    order3.addItem("Soft Drinks", 3.50, 4);
+    order3.display();
+    
+    // === Create Order 4: Table 3 ===
+    Order& order4 = myRestaurant.createNewOrder(3);
+    order4.addItem("Soup of the Day", 7.50, 1);
+    order4.addItem("Club Sandwich", 14.00, 1);
+    order4.addItem("Iced Tea", 3.00, 1);
+    order4.markAsPaid();  
+    order4.display();
+    
+    // === Create Order 5: Table 10 ===
+    Order& order5 = myRestaurant.createNewOrder(10);
+    order5.addItem("Appetizer Platter", 18.00, 1);
+    order5.addItem("Steak Frites", 35.00, 2);
+    order5.addItem("Chocolate Mousse", 9.00, 2);
+    order5.addItem("Cabernet Sauvignon", 12.00, 1);
+    order5.display();
+    
+    // summary
+    myRestaurant.displaySummary();
+    
+    // table 5 and table 8 are paying
+    cout << "\n*** Table 5 is paying their bill ***" << endl;
+    order1.markAsPaid();
+    order1.display();
+    
+    cout << "\n*** Table 8 is paying their bill ***" << endl;
+    order3.markAsPaid();
+    order3.display();
+    
+    // Final summary
+    myRestaurant.displaySummary();
+    
+    return 0; 
+}
