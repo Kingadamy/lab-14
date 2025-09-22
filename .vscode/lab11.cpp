@@ -12,7 +12,7 @@ struct MenuItem {
     int quantity;
 
     //initialize menu item
-    MenuItem(const string& itemName, double itemPrice, int itemQty) {
+    MenuItem(const string& itemName, double itemPrice, int itemQty) 
         : name(itemName), price(itemPrice), quantity(itemQty) {}
 };
 
@@ -61,3 +61,59 @@ struct Order {
     }
 };
 
+// all restaurant orders
+class Restaurant {
+private:
+    vector<Order> allOrders;    
+    string restaurantName;
+    
+public:
+    
+    Restaurant(const string& name) : restaurantName(name) {
+        cout << "=== " << restaurantName << " Order System ===" << endl;
+        cout << "Starting service for the evening...\n" << endl;
+    }
+    
+    // create a new order and return reference to it
+    Order& createNewOrder(int tableNumber) {
+        cout << "\nNew customers at Table " << tableNumber << "..." << endl;
+        
+        allOrders.push_back(Order(tableNumber)); 
+        return allOrders.back();
+    }
+    
+    // didspslay all orders
+    void displayAllOrders() const {
+        cout << "\n--- All Current Orders ---" << endl;
+        for (const auto& order : allOrders) {
+            order.display();
+        }
+    }
+    
+    // display the statistics
+    void displaySummary() const {
+        cout << "\n\n=== RESTAURANT SUMMARY ===" << endl;
+        
+        double totalRevenue = 0;
+        int paidOrders = 0;
+        int totalItems = 0;
+        
+     
+        for (const auto& order : allOrders) {
+            if (order.isPaid) {
+                totalRevenue += order.totalPrice;
+                paidOrders++;
+            }
+            totalItems += order.getItemCount();
+        }
+        
+        cout << "Total orders: " << allOrders.size() << endl;
+        cout << "Paid orders: " << paidOrders << endl;
+        cout << "Pending orders: " << (allOrders.size() - paidOrders) << endl;
+        cout << "Total items ordered: " << totalItems << endl;
+        cout << "Revenue from paid orders: $" << fixed << setprecision(2) 
+             << totalRevenue << endl;
+        cout << "===========================" << endl;
+    }
+    
+};
